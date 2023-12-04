@@ -107,7 +107,8 @@ function cycleWindowSizes(display, window, binding) {
 
     // Centre window onscreen
     let newX = (workArea.width - newWidth) / 2;
-    let newY = ((workArea.height - newHeight) / 2) + 60;
+    // Vertical centre is adjusted for Gnome menu bar size (default 32 pixels)
+    let newY = ((workArea.height - newHeight) / 2) + (32 * scaleFactor);
 
     // Push the window onscreen if it would be resized offscreen
     if (newX + newWidth > workArea.x + workArea.width)
