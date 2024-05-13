@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="gnome-shell-extensions">
-  <schema id="org.gnome.shell.extensions.window-centre-sizer"
-          path="/org/gnome/shell/extensions/window-centre-sizer/">
+<schemalist>
+  <schema id="org.gnome.shell.extensions.window-centre-sizer" path="/org/gnome/shell/extensions/window-centre-sizer/">
     <key type="as" name="cycle-window-sizes">
-        <default><![CDATA[['<Alt><Control>bracketright']]]></default>
+      <default><![CDATA[['<Alt><Control>bracketright']]]></default>
       <summary>Cycle Window Sizes</summary>
     </key>
     <key type="as" name="cycle-window-sizes-backward">
-        <default><![CDATA[['<Alt><Control>bracketleft']]]></default>
+      <default><![CDATA[['<Alt><Control>bracketleft']]]></default>
       <summary>Cycle Window Sizes Backward</summary>
     </key>
   </schema>

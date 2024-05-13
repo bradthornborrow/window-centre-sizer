@@ -103,7 +103,7 @@ function cycleWindowSizes(display, window, binding) {
 
     // Centre window onscreen
     let newX = (workArea.width - newWidth) / 2;
-    // Vertical centre is adjusted for Gnome menu bar size (default 32 pixel
+    // Vertical centre is adjusted for Gnome menu bar size (default 32 pixels)
     let newY = ((workArea.height - newHeight) / 2) + (32 * scaleFactor);
 
     // Push the window onscreen if it would be resized offscreen
@@ -128,13 +128,6 @@ function _notifySizeChange(window) {
     let message = '%d×%d'.format(
         newOuterRect.width / scaleFactor,
         newOuterRect.height / scaleFactor);
-
-    // The new size might have been constrained by geometry hints (e.g. for
-    // a terminal) - in that case, include the actual ratio to the message
-    // we flash
-    let actualNumerator = 9 * newOuterRect.width / newOuterRect.height;
-    if (Math.abs(actualNumerator - 16) > 0.01)
-        message += ' (%.2f:9)'.format(actualNumerator);
 
     flashMessage(message);
 }
