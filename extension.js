@@ -27,8 +27,8 @@ const MESSAGE_FADE_TIME = 2000;
 
 export default class WindowCentreSizerExtension extends Extension {
     SIZES = [
-        [1024, 640],
-        [1140, 680],
+        [0.70, 0.76],
+        [0.80, 0.86],
     ];
 
     _flashMessage(message) {
@@ -76,9 +76,8 @@ export default class WindowCentreSizerExtension extends Extension {
         let outerRect = window.get_frame_rect();
 
         // Double both axes if on a hidpi display
-        let scaleFactor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
-        let scaledSizes = this.SIZES.map(size => size.map(wh => wh * scaleFactor))
-            .filter(([w, h]) => w <= workArea.width && h <= workArea.height);
+        let scaledSizes = this.SIZES.map(row => row.map((element, columnIndex) => (columnIndex === 0) ? Math.trunc(element * workArea.width) : Math.trunc(element * workArea.height)));
+        console.log(scaledSizes);
 
         // Find the nearest 16:9 size for the current window size
         let nearestIndex;
@@ -102,7 +101,7 @@ export default class WindowCentreSizerExtension extends Extension {
         // Centre window onscreen
         let newX = (workArea.width - newWidth) / 2;
         // Vertical centre is adjusted for Gnome menu bar size (default 32 pixels)
-        let newY = ((workArea.height - newHeight) / 2) + (32 * scaleFactor);
+        let newY = ((workArea.height - newHeight) / 2) + 64;
 
         const id = window.connect('size-changed', () => {
             window.disconnect(id);
@@ -115,11 +114,10 @@ export default class WindowCentreSizerExtension extends Extension {
      * @param {Meta.Window} window - the window whose size changed
      */
     _notifySizeChange(window) {
-        const {scaleFactor} = St.ThemeContext.get_for_stage(global.stage);
         let newOuterRect = window.get_frame_rect();
         let message = '%d×%d'.format(
-            newOuterRect.width / scaleFactor,
-            newOuterRect.height / scaleFactor);
+            newOuterRect.width,
+            newOuterRect.height);
 
         this._flashMessage(message);
     }
