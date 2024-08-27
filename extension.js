@@ -27,8 +27,8 @@ const MESSAGE_FADE_TIME = 2000;
 
 export default class WindowCentreSizerExtension extends Extension {
     SIZES = [
-        [0.72, 0.76],
-        [0.82, 0.86],
+        [0.70, 0.80],
+        [0.80, 0.90],
     ];
 
     _flashMessage(message) {
@@ -101,7 +101,7 @@ export default class WindowCentreSizerExtension extends Extension {
         // Centre window onscreen
         let newX = (workArea.width - newWidth) / 2;
         // Vertical centre is adjusted for Gnome menu bar size (default 32 pixels)
-        let newY = ((workArea.height - newHeight) / 2) + 64;
+        let newY = ((workArea.height - newHeight) / 2) + (32 * St.ThemeContext.get_for_stage(global.stage).scale_factor);
 
         const id = window.connect('size-changed', () => {
             window.disconnect(id);
