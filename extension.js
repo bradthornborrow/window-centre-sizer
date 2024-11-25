@@ -28,7 +28,8 @@ const MESSAGE_FADE_TIME = 2000;
 export default class WindowCentreSizerExtension extends Extension {
     SIZES = [
         [0.72, 0.78],
-        [0.82, 0.88],
+        [0.84, 0.88],
+        [0.96, 0.94],
     ];
 
     _flashMessage(message) {
