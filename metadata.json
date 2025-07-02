@@ -1,7 +1,7 @@
 {
     "extension-id": "window-centre-sizer",
     "uuid": "window-centre-sizer@bradthornborrow.github.com",
-    "name": "Window Centre Sizer for Gnome Shell",
+    "name": "Window Centre Sizer",
     "description": "Quickly resize and centre windows via keyboard",
     "settings-schema": "org.gnome.shell.extensions.window-centre-sizer",
     "shell-version": [ "45", "46", "47", "48" ],
