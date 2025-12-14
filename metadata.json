@@ -4,7 +4,7 @@
     "name": "Window Centre Sizer",
     "description": "Quickly resize and centre windows via keyboard",
     "settings-schema": "org.gnome.shell.extensions.window-centre-sizer",
-    "shell-version": [ "45", "46", "47", "48" ],
+    "shell-version": [ "48", "49" ],
     "url": "https://github.com/bradthornborrow/window-centre-sizer",
     "gettext-domain": "window-centre-sizer"
 }

@@ -29,7 +29,6 @@ export default class WindowCentreSizerExtension extends Extension {
     SIZES = [
         [0.72, 0.78],
         [0.84, 0.88],
-        [0.96, 0.94],
     ];
 
     _flashMessage(message) {
@@ -71,14 +70,14 @@ export default class WindowCentreSizerExtension extends Extension {
         const backwards = binding.is_reversed();
 
         // Unmaximize first
-        if (window.get_maximized() !== 0)
-            window.unmaximize(Meta.MaximizeFlags.BOTH);
+        if (window.is_maximized())
+            window.unmaximize();
 
-        let workArea = window.get_work_area_current_monitor();
-        let outerRect = window.get_frame_rect();
+        const workArea = window.get_work_area_current_monitor();
+        const outerRect = window.get_frame_rect();
 
         // Double both axes if on a hidpi display
-        let scaledSizes = this.SIZES.map(row => row.map((element, columnIndex) => (columnIndex === 0) ? Math.trunc(element * workArea.width) : Math.trunc(element * workArea.height)));
+        const scaledSizes = this.SIZES.map(row => row.map((element, columnIndex) => (columnIndex === 0) ? Math.trunc(element * workArea.width) : Math.trunc(element * workArea.height)));
         console.log(scaledSizes);
 
         // Find the nearest 16:9 size for the current window size
@@ -86,10 +85,10 @@ export default class WindowCentreSizerExtension extends Extension {
         let nearestError;
 
         for (let i = 0; i < scaledSizes.length; i++) {
-            let [width, height] = scaledSizes[i];
+            const [width, height] = scaledSizes[i];
 
             // get the best initial window size
-            let error = Math.abs(width - outerRect.width) + Math.abs(height - outerRect.height);
+            const error = Math.abs(width - outerRect.width) + Math.abs(height - outerRect.height);
             if (nearestIndex === undefined || error < nearestError) {
                 nearestIndex = i;
                 nearestError = error;
@@ -97,8 +96,8 @@ export default class WindowCentreSizerExtension extends Extension {
         }
 
         // get the next size up or down from ideal
-        let newIndex = (nearestIndex + (backwards ? -1 : 1)) % scaledSizes.length;
-        let [newWidth, newHeight] = scaledSizes.at(newIndex);
+        const newIndex = (nearestIndex + (backwards ? -1 : 1)) % scaledSizes.length;
+        const [newWidth, newHeight] = scaledSizes.at(newIndex);
 
         // Centre window onscreen
         let newX = (workArea.width - newWidth) / 2;
@@ -116,7 +115,7 @@ export default class WindowCentreSizerExtension extends Extension {
      * @param {Meta.Window} window - the window whose size changed
      */
     _notifySizeChange(window) {
-        let newOuterRect = window.get_frame_rect();
+        const newOuterRect = window.get_frame_rect();
         let message = '%d×%d'.format(
             newOuterRect.width,
             newOuterRect.height);
